@@ -11,16 +11,7 @@ interface ButtonProps extends TouchableOpacityProps {
   leftIcon?: React.ReactNode;
 }
 
-export default function Button({
-  children,
-  onPress,
-  variant = 'default',
-  loading = false,
-  leftIcon,
-  style,
-  disabled,
-  ...props
-}: ButtonProps) {
+export default function Button({ children, onPress, variant = 'default', loading = false, leftIcon, style, disabled, ...props }: ButtonProps) {
   const isDisabled = disabled || loading;
 
   return (
