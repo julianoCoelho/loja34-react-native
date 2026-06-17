@@ -1,4 +1,4 @@
-// Tela Esboço para teste de navegação
+
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 

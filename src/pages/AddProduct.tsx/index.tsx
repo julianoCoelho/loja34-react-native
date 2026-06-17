@@ -1,71 +1,36 @@
-import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  StyleSheet
-} from 'react-native';
 
-export default function AddProduct() {
+import React from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
 
-  const [title, setTitle] = useState('');
-  const [price, setPrice] = useState('');
-  const [category, setCategory] = useState('');
-
+export default function AddProduct({ navigation }: any) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Cadastro de Produto</Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Nome do produto"
-        value={title}
-        onChangeText={setTitle}
-      />
-
-      <TextInput
-        style={styles.input}
-        placeholder="Preço"
-        value={price}
-        onChangeText={setPrice}
-      />
-
-      <TextInput
-        style={styles.input}
-        placeholder="Categoria"
-        value={category}
-        onChangeText={setCategory}
-      />
-
-      <Button
-        title="Cadastrar Produto"
-        onPress={() => console.log('Produto cadastrado')}
+      <Text style={styles.title}>Tela de Cadastro de Produto</Text>
+      <Button 
+        title="Entrar no Sistema" 
+        onPress={() => navigation.navigate('AppDrawer')}
+         
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  container: { 
+    
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
     backgroundColor: '#121212',
-    padding: 20,
-    justifyContent: 'center',
-  },
-
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
+    
+    
+},
+  title: { 
+    fontSize: 22, 
+    fontWeight: 'bold', 
+    marginBottom: 20 ,
     color: '#fff',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-
-  input: {
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 12,
-    marginBottom: 15,
-  },
+    
+     
+}
 });
