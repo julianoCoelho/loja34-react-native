@@ -70,7 +70,7 @@ npx expo start -c
 
 ## 🔑 Credenciais de Teste (Fake)
 
-Para testar o fluxo de autenticação basca colocar quaisquerdados não está integrado a uma API.
+Para testar o fluxo de autenticação basta colocar quaisquer dados não está integrado a uma API.
 
 ---
 
