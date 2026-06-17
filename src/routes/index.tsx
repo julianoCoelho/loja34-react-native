@@ -7,7 +7,7 @@ import { RootStackParamList, DrawerParamList } from './types';
 import Login from '../pages/Login';
 import Products from '../pages/Products';
 import ProductDetails from '../pages/ProductDetails';
-import AddProduct from '../pages/AddProduct.tsx';
+import AddProduct from '../pages/AddProduct';
 import Sobre from '../pages/Sobre';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
