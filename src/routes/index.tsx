@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { RootStackParamList, DrawerParamList } from './types';
-import { CustomDrawer } from '../components/CustomDrawer'; 
+import { CustomDrawer } from '../components/CustomDrawer/CustomDrawer'; 
 
 // Importação de Telas
 import Login from '../pages/Login';
