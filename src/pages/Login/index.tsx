@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { Text, View } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Feather } from '@expo/vector-icons'; 
 
 import { theme } from '../../styles/theme';
-import {styles} from './styles';
+import { styles } from './styles';
 import { loginSchema } from '../../utils/validations/loginSchema';
 import { ControlledInput } from '../../components/ControlledInput/ControlledInput';
+import Button from '../../components/Button';
 
 export default function Login({ navigation }: any) {
-  // Controle de tema simulado
-  const [currentThemeMode, setCurrentThemeMode] = useState<'light' | 'dark'>('light');
   const [loading, setLoading] = useState(false);
 
-
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const { control, handleSubmit, formState: { errors } } = useForm<any>({
     resolver: yupResolver(loginSchema),
   });
 
@@ -30,27 +27,14 @@ export default function Login({ navigation }: any) {
     }, 800);
   }
 
-  const toggleTheme = () => setCurrentThemeMode(prev => prev === 'light' ? 'dark' : 'light');
-  
-  const isDark = currentThemeMode === 'dark';
-
-  const colors = isDark ? theme.colors.dark : theme.colors.light;
-
   return (
-    <View style={[styles.page, { backgroundColor: colors.background }]}>
+    <View style={[styles.page, { backgroundColor: theme.colors.background }]}>
       
-   
-      <TouchableOpacity style={[styles.themeToggle, { borderColor: colors.border }]} onPress={toggleTheme}>
-        <Feather name={isDark ? "sun" : "moon"} size={20} color={isDark ? "#fff" : "#333"} />
-      </TouchableOpacity>
-
-   
-      <View style={[styles.card, { backgroundColor: colors.card, borderColor: colors.border }]}>
+      <View style={[styles.card, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}>
         
-      
         <View style={styles.top}>
           <Text style={styles.logoIcon}>🛍️</Text>
-          <Text style={[styles.title, { color: colors.text }]}>Loja 34</Text>
+          <Text style={[styles.title, { color: theme.colors.text }]}>Loja 34</Text>
           <Text style={styles.subtitle}>Entre na sua conta para continuar</Text>
         </View>
 
@@ -59,10 +43,8 @@ export default function Login({ navigation }: any) {
           name="username"
           icon="user"
           placeholder="Usuário"
-          error={errors.username?.message}
-          isDark={isDark}
+          error={errors.username?.message as string}
         />
-
 
         <ControlledInput 
           control={control}
@@ -70,21 +52,17 @@ export default function Login({ navigation }: any) {
           icon="lock"
           placeholder="Senha"
           secureTextEntry
-          error={errors.password?.message}
-          isDark={isDark}
+          error={errors.password?.message as string}
         />
 
-          <TouchableOpacity 
-          style={[styles.submitBtn, loading && { opacity: 0.7 }]} 
+        <Button 
+          variant="default"
+          loading={loading}
           onPress={handleSubmit(onSubmit)}
-          disabled={loading}
+          style={{ marginTop: 16 }}
         >
-          {loading ? (
-            <ActivityIndicator color="#fff" />
-          ) : (
-            <Text style={styles.submitBtnText}>Entrar</Text>
-          )}
-        </TouchableOpacity>
+          Entrar
+        </Button>
 
         <Text style={styles.hint}>
           Dica: preencha os campos para testar a navegação
