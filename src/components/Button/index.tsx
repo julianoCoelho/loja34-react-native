@@ -47,4 +47,3 @@ export default function Button({ children, onPress, variant = 'default', loading
     </TouchableOpacity>
   );
 }
-
