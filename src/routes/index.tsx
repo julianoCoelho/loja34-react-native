@@ -1,11 +1,9 @@
-// Rotas com naveção do tipo Drawer
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { RootStackParamList, DrawerParamList } from './types';
 
-// Importação da telas de teste:
 import Login from '../pages/Login';
 import Products from '../pages/Products';
 import ProductDetails from '../pages/ProductDetails';
