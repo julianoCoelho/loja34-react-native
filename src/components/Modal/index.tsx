@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-    Modal as RNModal,
-    ModalProps as RNModalProps,
-    Text,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    View,
-} from 'react-native';
+import { Modal as RNModal, ModalProps as RNModalProps, Text, TouchableOpacity, TouchableWithoutFeedback, View, } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import styles from './styles';
 
