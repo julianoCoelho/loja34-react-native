@@ -7,7 +7,7 @@ import { Feather } from '@expo/vector-icons';
 import { theme } from '../../styles/theme';
 import {styles} from './styles';
 import { loginSchema } from '../../utils/validations/loginSchema';
-import { ControlledInput } from '../../components/ControlledInput';
+import { ControlledInput } from '../../components/ControlledInput/ControlledInput';
 
 export default function Login({ navigation }: any) {
   // Controle de tema simulado
