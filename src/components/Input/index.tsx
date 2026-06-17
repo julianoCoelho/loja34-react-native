@@ -45,4 +45,3 @@ export default function Input({ label, error, leftIcon, rightIcon, secureTextEnt
         </View>
     );
 }
-
