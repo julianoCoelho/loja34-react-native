@@ -94,7 +94,7 @@ export default function Login({ navigation }: any) {
   );
 }
 
-// Estilos de alinhamento e tamanhos estruturais fixos
+
 const styles = StyleSheet.create({
   page: { 
     flex: 1, 
