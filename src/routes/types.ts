@@ -1,4 +1,5 @@
-// Tipos
+import { Produto } from '../components/CardProduto';
+
 export type DrawerParamList = {
   Home: undefined;
   'Adicionar Produto': undefined;
@@ -7,6 +8,6 @@ export type DrawerParamList = {
 
 export type RootStackParamList = {
   Login: undefined;
-  AppDrawer: undefined;   
-  Detalhes: { id: number }; 
+  AppDrawer: undefined;
+  Detalhes: { produto: Produto };
 };
