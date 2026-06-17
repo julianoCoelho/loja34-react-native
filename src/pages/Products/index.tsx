@@ -2,10 +2,10 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 
-export default function Sobre({ navigation }: any) {
+export default function Products({ navigation }: any) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tela Sobre</Text>
+      <Text style={styles.title}>Tela de Produtos</Text>
       <Button 
         title="Entrar no Sistema" 
         onPress={() => navigation.navigate('AppDrawer')} 
