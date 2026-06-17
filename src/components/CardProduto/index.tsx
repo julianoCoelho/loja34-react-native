@@ -10,6 +10,8 @@ export interface Produto {
     preco: number;
     imagemUrl?: string;
     categoria?: string;
+    descricao?: string;
+    estoque?: number;
 }
 
 interface CardProdutoProps extends TouchableOpacityProps {
