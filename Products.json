@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "nome": "Tênis Esportivo Runner",
+        "preco": 299.9,
+        "categoria": "Calçados",
+        "estoque": 12,
+        "imagemUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400",
+        "descricao": "Tênis leve e respirável, ideal para corridas e treinos do dia a dia. Solado com amortecimento extra e cabedal em mesh."
+    },
+    {
+        "id": 2,
+        "nome": "Camiseta Dry Fit",
+        "preco": 79.9,
+        "categoria": "Vestuário",
+        "estoque": 30,
+        "imagemUrl": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400",
+        "descricao": "Tecido tecnológico que absorve o suor e seca rapidamente, proporcionando conforto durante a atividade física."
+    },
+    {
+        "id": 3,
+        "nome": "Mochila Casual 20L",
+        "preco": 159.5,
+        "categoria": "Acessórios",
+        "estoque": 0,
+        "imagemUrl": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400",
+        "descricao": "Mochila resistente à água com compartimento acolchoado para notebook de até 15 polegadas."
+    },
+    {
+        "id": 4,
+        "nome": "Garrafa Térmica 1L",
+        "preco": 89.0,
+        "categoria": "Acessórios",
+        "estoque": 8,
+        "imagemUrl": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=400",
+        "descricao": "Mantém líquidos gelados por até 24h e quentes por até 12h. Aço inoxidável e livre de BPA."
+    }
+]

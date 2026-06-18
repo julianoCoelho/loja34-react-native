@@ -1,24 +1,52 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, TouchableOpacity } from 'react-native';
+import styles from './styles';
+import productsJson from '../../../Products.json';
+import CardProduto from '../../components/CardProduto';
+import EmptyList from '../../components/EmptyList';
+import { FlatList } from 'react-native';
 
-export default function Products({ navigation }: any) {
+
+
+
+
+
+
+const produtos: Produtos[] = productsJson;
+
+type ProductsProps = {
+  navigation: any;
+};
+
+
+export default function Products({ navigation }: ProductsProps) {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Loja 34</Text>
 
-      <Text style={styles.subtitle}>
-        Confira nossos produtos
-      </Text>
+    <View style={styles.container}>
+
+      <Text style={styles.title}>Loja 34</Text>
 
       <View style={styles.card}>
         <Text style={styles.productName}>Produto Exemplo</Text>
-        <Text style={styles.price}>R$ 99,90</Text>
       </View>
+      <FlatList
+        data={produtos}
+        keyExtractor={(item) => String(item.id)}
+        contentContainerStyle={styles.listContent}
+        renderItem={({ item }) => (
+          <CardProduto
+            produto={item}
+            onPress={() =>
+              navigation.navigate('Detalhes', { produto: item })
+            }
+          />
+        )}
+
+        ListEmptyComponent={
+          <EmptyList message="Nenhum produto cadastrado" />
+        }
+      />
+      
 
       <TouchableOpacity
         style={styles.button}
@@ -26,62 +54,12 @@ export default function Products({ navigation }: any) {
       >
         <Text style={styles.buttonText}>Ver Mais Produtos</Text>
       </TouchableOpacity>
+
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#121212',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
 
-  title: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
 
-  subtitle: {
-    fontSize: 18,
-    color: '#ccc',
-    marginBottom: 30,
-  },
 
-  card: {
-    width: '90%',
-    backgroundColor: '#1E1E1E',
-    padding: 20,
-    borderRadius: 12,
-    marginBottom: 20,
-  },
 
-  productName: {
-    fontSize: 20,
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-
-  price: {
-    fontSize: 18,
-    color: '#4CAF50',
-    marginTop: 10,
-  },
-
-  button: {
-    backgroundColor: '#1372c0',
-    padding: 15,
-    borderRadius: 10,
-    width: '90%',
-    alignItems: 'center',
-  },
-
-  buttonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-});
