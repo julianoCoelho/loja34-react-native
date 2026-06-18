@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { theme } from '../../styles/theme';
 
 const styles = StyleSheet.create({
   btn: {
@@ -8,7 +9,7 @@ const styles = StyleSheet.create({
     gap: 8,
     paddingVertical: 12,
     paddingHorizontal: 20,
-    borderRadius: 8,
+    borderRadius: theme.radius.md,
     minHeight: 44,
   },
   text: {
@@ -23,23 +24,23 @@ const styles = StyleSheet.create({
   },
 
   default: {
-    backgroundColor: '#2563eb',
+    backgroundColor: theme.colors.primary,
   },
   text_default: {
     color: '#ffffff',
   },
 
   secondary: {
-    backgroundColor: '#f3f4f6',
+    backgroundColor: theme.colors.input,
     borderWidth: 1,
-    borderColor: '#e5e7eb',
+    borderColor: theme.colors.border,
   },
   text_secondary: {
-    color: '#374151',
+    color: theme.colors.text,
   },
 
   danger: {
-    backgroundColor: '#dc2626',
+    backgroundColor: theme.colors.danger,
   },
   text_danger: {
     color: '#ffffff',
@@ -48,20 +49,20 @@ const styles = StyleSheet.create({
   outline: {
     backgroundColor: 'transparent',
     borderWidth: 1.5,
-    borderColor: '#2563eb',
+    borderColor: theme.colors.primary,
   },
   text_outline: {
-    color: '#2563eb',
+    color: theme.colors.primary,
   },
 
   logout: {
-    backgroundColor: '#fee2e2',
+    backgroundColor: 'transparent',
     borderWidth: 1,
-    borderColor: '#fca5a5',
+    borderColor: theme.colors.danger,
     width: '100%',
   },
   text_logout: {
-    color: '#dc2626',
+    color: theme.colors.danger,
   },
 });
 
