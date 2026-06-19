@@ -4,15 +4,24 @@ import { DrawerContentComponentProps, DrawerContentScrollView, DrawerItemList } 
 import { Feather } from '@expo/vector-icons';
 import { theme } from '../../styles/theme';
 import { styles } from './styles';
+import { useAuth } from '../../context/AuthContext'; 
 
 export function CustomDrawer(props: DrawerContentComponentProps) {
   
+  const { logout } = useAuth(); 
+
   // Função Simula logout
-  const handleLogout = () => {
-    props.navigation.reset({
-      index: 0,
-      routes: [{ name: 'Login' }],
-    });
+  const handleLogout = async() => {
+    try{
+      await logout();
+
+      props.navigation.reset({
+        index: 0,
+        routes:[{name: 'Login'}],
+      });
+    }catch(error){
+       console.log("Erro ao tentar deslogar o usuário:", error);
+    }
   };
 
   const colors = theme.colors;
