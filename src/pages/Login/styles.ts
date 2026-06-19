@@ -59,7 +59,22 @@ export const styles = StyleSheet.create({
     fontSize: 12, 
     color: '#888', 
     textAlign: 'center' 
-  }
+  },
+  apiErrorBox: {
+    backgroundColor: '#fee2e2', // Fundo vermelho clarinho
+    borderColor: '#fca5a5',
+    borderWidth: 1,
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 16,
+    width: '100%',
+  },
+  apiErrorText: {
+    color: '#dc2626', // Texto vermelho de atenção
+    fontSize: 13,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
 });
 
 
