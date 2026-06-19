@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, Alert } from 'react-native';
 import styles from './styles';
 
+import { createProduct } from '../../services/api';
 
 export default function AddProduct() {
 
@@ -9,9 +10,40 @@ export default function AddProduct() {
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState('');
 
+  async function handleCreate() {
+
+    try {
+
+      if (!title || !price || !category) {
+        Alert.alert('Erro', 'Preencha todos os campos');
+        return;
+      }
+
+      await createProduct({
+        title,
+        price: Number(price),
+        category
+      });
+
+      Alert.alert('Sucesso', 'Produto cadastrado com sucesso!');
+
+      setTitle('');
+      setPrice('');
+      setCategory('');
+
+    } catch (error) {
+
+      Alert.alert('Erro', 'Não foi possível cadastrar o produto');
+
+    }
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Cadastro de Produto</Text>
+
+      <Text style={styles.title}>
+        Cadastro de Produto
+      </Text>
 
       <TextInput
         style={styles.input}
@@ -25,6 +57,7 @@ export default function AddProduct() {
         placeholder="Preço"
         value={price}
         onChangeText={setPrice}
+        keyboardType="numeric"
       />
 
       <TextInput
@@ -36,9 +69,9 @@ export default function AddProduct() {
 
       <Button
         title="Cadastrar Produto"
-        onPress={() => console.log('Produto cadastrado')}
+        onPress={handleCreate}
       />
+
     </View>
   );
 }
-

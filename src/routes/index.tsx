@@ -5,12 +5,13 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { RootStackParamList, DrawerParamList } from './types';
 import { CustomDrawer } from '../components/CustomDrawer/CustomDrawer'; 
 
-// Importação de Telas
+
 import Login from '../pages/Login';
 import Products from '../pages/Products';
 import ProductDetails from '../pages/ProductDetails';
 import AddProduct from '../pages/AddProduct';
 import Sobre from '../pages/Sobre';
+import EditProduct from '../pages/EditProduct';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Drawer = createDrawerNavigator<DrawerParamList>();
@@ -62,6 +63,7 @@ export default function Routes() {
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="AppDrawer" component={DrawerRoutes} />
       <Stack.Screen name="Detalhes" component={ProductDetails} options={{ headerShown: true, title: 'Visualizar Produto' }} />
+      <Stack.Screen name="EditProduct" component={EditProduct} options={{ headerShown: true, title: 'Editar Produto'}}/>
     </Stack.Navigator>
   );
 }

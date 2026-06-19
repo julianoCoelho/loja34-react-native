@@ -10,4 +10,6 @@ export type RootStackParamList = {
   Login: undefined;
   AppDrawer: undefined;
   Detalhes: { produto: Produto };
+EditProduct: { produto: Produto };
+  
 };
