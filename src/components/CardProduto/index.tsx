@@ -3,6 +3,7 @@ import { Image, Text, TouchableOpacity, TouchableOpacityProps, View } from 'reac
 import { Ionicons } from '@expo/vector-icons';
 import Badge from '../Badge';
 import styles from './styles';
+import { theme } from '../../styles/theme';
 
 export interface Produto {
     id: number;
@@ -28,7 +29,7 @@ export default function CardProduto({ produto, onPress, onAddPress, style, ...pr
 
     return (
         <TouchableOpacity
-            style={[styles.card, style]}
+            style={[styles.card, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }, style]}
             onPress={onPress}
             activeOpacity={0.8}
             {...props}
@@ -36,24 +37,24 @@ export default function CardProduto({ produto, onPress, onAddPress, style, ...pr
             {produto.imagemUrl ? (
                 <Image source={{ uri: produto.imagemUrl }} style={styles.image} resizeMode="cover" />
             ) : (
-                <View style={styles.imagePlaceholder}>
-                    <Ionicons name="image-outline" size={28} color="#9ca3af" />
+                <View style={[styles.imagePlaceholder, { backgroundColor: theme.colors.input }]}>
+                    <Ionicons name="image-outline" size={28} color={theme.colors.textSecondary} />
                 </View>
             )}
 
             <View style={styles.info}>
                 <View style={styles.topRow}>
-                    <Text style={styles.nome} numberOfLines={2}>
+                    <Text style={[styles.nome, { color: theme.colors.text }]} numberOfLines={2}>
                         {produto.nome}
                     </Text>
                     {produto.categoria && <Badge label={produto.categoria} variant="info" />}
                 </View>
 
                 <View style={styles.footer}>
-                    <Text style={styles.preco}>{precoFormatado}</Text>
+                    <Text style={[styles.preco, { color: theme.colors.primary }]}>{precoFormatado}</Text>
 
                     {onAddPress && (
-                        <TouchableOpacity style={styles.addButton} onPress={onAddPress} activeOpacity={0.7}>
+                        <TouchableOpacity style={[styles.addButton, { backgroundColor: theme.colors.primary }]} onPress={onAddPress} activeOpacity={0.7}>
                             <Ionicons name="add" size={18} color="#ffffff" />
                         </TouchableOpacity>
                     )}

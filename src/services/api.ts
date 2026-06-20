@@ -7,8 +7,6 @@ const api = axios.create({
   timeout: 10000,
 });
 
-
-
 api.interceptors.request.use(
   async (config) => {
     try {
@@ -18,7 +16,6 @@ api.interceptors.request.use(
       if (savedUser) {
        
         const { token } = JSON.parse(savedUser);
-        
     
         if (token && config.headers) {
           config.headers.Authorization = `Bearer ${token}`;
@@ -28,7 +25,6 @@ api.interceptors.request.use(
       console.log('Erro ao tentar injetar o token no cabeçalho:', error);
     }
     
-  
     return config;
   },
   (error) => {
@@ -36,7 +32,6 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
 
 export const getProducts = () => api.get('/products');
 export const getProduct = (id: any) => api.get(`/products/${id}`);

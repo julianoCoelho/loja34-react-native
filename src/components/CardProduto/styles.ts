@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     card: {
         flexDirection: 'row',
-        backgroundColor: '#ffffff',
         borderRadius: 12,
         padding: 12,
         marginBottom: 12,
@@ -13,18 +12,17 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.08,
         shadowRadius: 3,
         elevation: 2,
+        borderWidth: 1,
     },
     image: {
         width: 72,
         height: 72,
         borderRadius: 10,
-        backgroundColor: '#f3f4f6',
     },
     imagePlaceholder: {
         width: 72,
         height: 72,
         borderRadius: 10,
-        backgroundColor: '#f3f4f6',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -42,7 +40,6 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 15,
         fontWeight: '600',
-        color: '#111827',
     },
     footer: {
         flexDirection: 'row',
@@ -53,10 +50,8 @@ const styles = StyleSheet.create({
     preco: {
         fontSize: 16,
         fontWeight: '700',
-        color: '#2563eb',
     },
     addButton: {
-        backgroundColor: '#2563eb',
         width: 28,
         height: 28,
         borderRadius: 14,
