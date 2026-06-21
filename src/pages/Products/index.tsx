@@ -5,6 +5,18 @@ import { getProducts, getProductsByCategory } from '../../services/api';
 import CardProduto, { Produto } from '../../components/CardProduto';
 import EmptyList from '../../components/EmptyList';
 
+import { FlatList } from 'react-native';
+
+
+
+
+
+
+
+
+const produtos: Produto[] = productsJson;
+
+
 type ProductsProps = {
   navigation: any;
 };
