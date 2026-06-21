@@ -9,6 +9,7 @@ export default function AddProduct() {
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState('');
+  const [loading, setLoading] = useState(false);
 
   async function handleCreate() {
 
@@ -18,6 +19,13 @@ export default function AddProduct() {
         Alert.alert('Erro', 'Preencha todos os campos');
         return;
       }
+
+      if (isNaN(Number(price))) {
+        Alert.alert('Erro', 'Preço inválido')
+        return;
+      }
+
+      setLoading(true);
 
       await createProduct({
         title,
@@ -35,6 +43,8 @@ export default function AddProduct() {
 
       Alert.alert('Erro', 'Não foi possível cadastrar o produto');
 
+    }finally {
+      setLoading(false);
     }
   }
 
@@ -50,6 +60,7 @@ export default function AddProduct() {
         placeholder="Nome do produto"
         value={title}
         onChangeText={setTitle}
+        editable={!loading}
       />
 
       <TextInput
@@ -58,6 +69,8 @@ export default function AddProduct() {
         value={price}
         onChangeText={setPrice}
         keyboardType="numeric"
+        editable={!loading}
+
       />
 
       <TextInput
@@ -65,11 +78,13 @@ export default function AddProduct() {
         placeholder="Categoria"
         value={category}
         onChangeText={setCategory}
+        editable={!loading}
       />
 
       <Button
-        title="Cadastrar Produto"
+        title={loading ? 'Cadastrando...' : 'Cadastrar Produto' }
         onPress={handleCreate}
+        disabled={loading}
       />
 
     </View>

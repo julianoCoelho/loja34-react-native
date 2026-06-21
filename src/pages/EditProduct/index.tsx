@@ -18,9 +18,20 @@ export default function EditProduct() {
 
   const [loading, setLoading] = useState(false);
 
-  async function handleUpdate() {
-    try {
-      setLoading(true);
+ async function handleUpdate() {
+  try {
+
+    if (!title || !price || !category) {
+      Alert.alert('Erro', 'Preencha todos os campos');
+      return;
+    }
+
+    if (isNaN(Number(price))) {
+      Alert.alert('Erro', 'Preço inválido');
+      return;
+    }
+
+    setLoading(true);
 
       await updateProduct(produto.id, {
         nome: title,

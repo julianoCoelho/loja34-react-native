@@ -12,7 +12,8 @@ import { FlatList } from 'react-native';
 
 
 
-const produtos: Produtos[] = productsJson;
+
+const produtos: Produto[] = productsJson;
 
 type ProductsProps = {
   navigation: any;

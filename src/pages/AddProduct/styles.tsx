@@ -22,6 +22,14 @@ const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 15,
   },
+
+
+  error: {
+    color: '#ff4d4d',
+    fontSize: 12,
+    marginBottom: 10,
+    marginTop: -8,
+  },
 });
 
 export default styles;

@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
-import { Image, ScrollView, Text, View } from 'react-native';
+import { Alert, Image, ScrollView, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
 import { RootStackParamList } from '../../routes/types';
 import Badge from '../../components/Badge';
 import Button from '../../components/Button';
 import Modal from '../../components/Modal';
 import styles from './styles';
 
-type ProductDetailsProps = NativeStackScreenProps<RootStackParamList, 'Detalhes'>;
+import { deleteProduct } from '../../services/api';
 
-export default function ProductDetails({ route, navigation }: ProductDetailsProps) {
+type ProductDetailsProps = NativeStackScreenProps<
+  RootStackParamList,
+  'Detalhes'
+>;
+
+export default function ProductDetails({
+  route,
+  navigation,
+}: ProductDetailsProps) {
   const { produto } = route.params;
-  const [modalVisible, setModalVisible] = useState(false);
+
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const precoFormatado = produto.preco.toLocaleString('pt-BR', {
     style: 'currency',
@@ -21,11 +32,33 @@ export default function ProductDetails({ route, navigation }: ProductDetailsProp
 
   const semEstoque = produto.estoque !== undefined && produto.estoque <= 0;
 
+  async function handleDelete() {
+    try {
+      setLoading(true);
+
+      await deleteProduct(produto.id);
+
+      setDeleteModal(false);
+
+      Alert.alert('Sucesso', 'Produto excluído com sucesso!');
+
+      navigation.goBack();
+    } catch (error) {
+      Alert.alert('Erro', 'Não foi possível excluir o produto.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {produto.imagemUrl ? (
-          <Image source={{ uri: produto.imagemUrl }} style={styles.image} resizeMode="cover" />
+          <Image
+            source={{ uri: produto.imagemUrl }}
+            style={styles.image}
+            resizeMode="cover"
+          />
         ) : (
           <View style={styles.imagePlaceholder}>
             <Ionicons name="image-outline" size={48} color="#9ca3af" />
@@ -33,51 +66,78 @@ export default function ProductDetails({ route, navigation }: ProductDetailsProp
         )}
 
         <View style={styles.info}>
-          <View style={styles.topRow}>
-            <Text style={styles.nome}>{produto.nome}</Text>
-            {produto.categoria && <Badge label={produto.categoria} variant="info" />}
-          </View>
+          <Text style={styles.nome}>{produto.nome}</Text>
+
+          {produto.categoria && (
+            <Badge label={produto.categoria} variant="info" />
+          )}
 
           <Text style={styles.preco}>{precoFormatado}</Text>
 
-          {produto.estoque !== undefined && (
-            <Badge
-              label={semEstoque ? 'Sem estoque' : `${produto.estoque} em estoque`}
-              variant={semEstoque ? 'danger' : 'success'}
-              style={styles.estoqueBadge}
-            />
-          )}
-
-          <Text style={styles.descricaoLabel}>Descrição</Text>
           <Text style={styles.descricao}>
-            {produto.descricao ?? 'Este produto ainda não possui uma descrição cadastrada.'}
+            {produto.descricao ??
+              'Este produto ainda não possui uma descrição cadastrada.'}
           </Text>
         </View>
       </ScrollView>
 
+      
       <View style={styles.footer}>
-        <Button variant="outline" onPress={() => navigation.goBack()} style={styles.footerButton}>
-          Voltar
-        </Button>
         <Button
-          variant="default"
-          disabled={semEstoque}
-          onPress={() => setModalVisible(true)}
+          variant="outline"
+          onPress={() => navigation.goBack()}
           style={styles.footerButton}
         >
-          Adicionar ao Carrinho
+          Voltar
+        </Button>
+
+        <Button
+          variant="default"
+          onPress={() =>
+            navigation.navigate('EditProduct', { produto })
+          }
+          style={styles.footerButton}
+        >
+          Editar
+        </Button>
+
+        <Button
+          variant="danger"
+          onPress={() => setDeleteModal(true)}
+          style={styles.footerButton}
+        >
+          Excluir
         </Button>
       </View>
 
-      <Modal visible={modalVisible} onClose={() => setModalVisible(false)} title="Produto adicionado">
+   
+      <Modal
+        visible={deleteModal}
+        onClose={() => setDeleteModal(false)}
+        title="Confirmar exclusão"
+      >
         <View style={styles.modalContent}>
-          <Ionicons name="checkmark-circle" size={48} color="#16a34a" style={styles.modalIcon} />
+          <Ionicons name="warning" size={48} color="red" />
+
           <Text style={styles.modalText}>
-            {produto.nome} foi adicionado ao carrinho com sucesso.
+            Tem certeza que deseja excluir este produto?
           </Text>
-          <Button variant="default" onPress={() => setModalVisible(false)} style={styles.modalButton}>
-            OK
+
+          <Button
+            variant="danger"
+            onPress={handleDelete}
+            disabled={loading}
+          >
+            {loading ? 'Excluindo...' : 'Sim, excluir'}
           </Button>
+
+          <Button
+            variant="outline"
+            onPress={() => setDeleteModal(false)}
+            disabled={loading}
+          >
+            Cancelar
+          </Button> 
         </View>
       </Modal>
     </View>
