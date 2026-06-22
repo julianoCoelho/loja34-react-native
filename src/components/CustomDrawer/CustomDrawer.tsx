@@ -37,7 +37,7 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
           <Feather name="user" size={24} color="#fff" />
         </View>
         <Text style={[styles.brandText, { color: colors.text }]}>🛍️ Loja 34</Text>
-       <Text style={[styles.userSubtitle, { color: colors.textSecondary }]}>
+        <Text style={[styles.userSubtitle, { color: colors.textSecondary }]}>
           {user?.username ? `Olá, ${user.username}` : 'Menu de Navegação'}
         </Text>
       </View>

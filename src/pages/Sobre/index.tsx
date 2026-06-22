@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Switch } from 'react-native';
+import { View, Text, ScrollView, Switch } from 'react-native';
 import styles from './styles';
 import { Feather } from '@expo/vector-icons';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -10,7 +10,7 @@ export default function Sobre() {
 
   return (
     <ScrollView
-      style={[styles.container, { backgroundColor: colors.background }]}
+      style={[styles.ccontainer, { backgroundColor: colors.background }]}
       contentContainerStyle={styles.content}
     >
       <View style={styles.header}>
