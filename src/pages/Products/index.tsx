@@ -104,7 +104,7 @@ export default function Products({ navigation }: ProductsProps) {
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 4 }}
-        style={{ marginBottom: 16 }}
+        style={{ marginBottom: 16, flexGrow: 0, flexShrink: 0 }}
       >
         {categorias.map((cat) => (
           <TouchableOpacity
