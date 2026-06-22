@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator, ScrollView } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 import styles from './styles';
 import { updateProduct } from '../../services/api';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -61,122 +62,144 @@ export default function EditProduct() {
     { backgroundColor: colors.input, color: colors.text, borderColor: colors.border },
   ];
 
-  const labelStyle = { color: colors.textSecondary, marginBottom: 8, fontSize: 14 };
-  const categoryButtonBase = {
-    borderRadius: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 14,
-    borderWidth: 1,
-    marginRight: 8,
-    marginBottom: 8,
-  };
-
   return (
     <ScrollView
       style={{ flex: 1, backgroundColor: colors.background }}
-      contentContainerStyle={{ padding: 20 }}
+      contentContainerStyle={styles.scrollContent}
       keyboardShouldPersistTaps="handled"
     >
-      <Text style={[styles.title, { color: colors.text }]}>Editar Produto</Text>
-
-      <Text style={labelStyle}>Nome *</Text>
-      <TextInput
-        style={inputStyle}
-        placeholder="Nome do produto"
-        placeholderTextColor={colors.textSecondary}
-        value={nome}
-        onChangeText={setNome}
-        editable={!loading}
-      />
-
-      <Text style={labelStyle}>Preço (R$) *</Text>
-      <TextInput
-        style={inputStyle}
-        placeholder="Ex: 199.90"
-        placeholderTextColor={colors.textSecondary}
-        value={preco}
-        onChangeText={setPreco}
-        keyboardType="decimal-pad"
-        editable={!loading}
-      />
-
-      <Text style={labelStyle}>Categoria *</Text>
-      <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginBottom: 15 }}>
-        {CATEGORIAS.map((cat) => {
-          const isActive = categoria === cat;
-          return (
-            <TouchableOpacity
-              key={cat}
-              onPress={() => setCategoria(cat)}
-              style={[
-                categoryButtonBase,
-                {
-                  borderColor: isActive ? colors.primary : colors.border,
-                  backgroundColor: isActive ? colors.primary : colors.card,
-                },
-              ]}
-            >
-              <Text style={{ color: isActive ? '#fff' : colors.textSecondary, fontSize: 13 }}>
-                {cat}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
+      {/* Cabeçalho */}
+      <View style={styles.header}>
+        <Text style={[styles.title, { color: colors.text }]}>Editar Produto</Text>
+        <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
+          Atualize as informações do produto
+        </Text>
+        <View style={[styles.divider, { backgroundColor: colors.border }]} />
       </View>
 
-      <Text style={labelStyle}>Descrição</Text>
-      <TextInput
-        style={[inputStyle, { height: 80, textAlignVertical: 'top' }]}
-        placeholder="Descreva o produto..."
-        placeholderTextColor={colors.textSecondary}
-        value={descricao}
-        onChangeText={setDescricao}
-        multiline
-        editable={!loading}
-      />
+      {/* Nome */}
+      <View style={styles.fieldGroup}>
+        <Text style={[styles.label, { color: colors.textSecondary }]}>Nome *</Text>
+        <TextInput
+          style={inputStyle}
+          placeholder="Nome do produto"
+          placeholderTextColor={colors.textSecondary}
+          value={nome}
+          onChangeText={setNome}
+          editable={!loading}
+        />
+      </View>
 
-      <Text style={labelStyle}>URL da Imagem</Text>
-      <TextInput
-        style={inputStyle}
-        placeholder="https://..."
-        placeholderTextColor={colors.textSecondary}
-        value={imagemUrl}
-        onChangeText={setImagemUrl}
-        keyboardType="url"
-        autoCapitalize="none"
-        editable={!loading}
-      />
+      {/* Preço */}
+      <View style={styles.fieldGroup}>
+        <Text style={[styles.label, { color: colors.textSecondary }]}>Preço (R$) *</Text>
+        <TextInput
+          style={inputStyle}
+          placeholder="Ex: 199.90"
+          placeholderTextColor={colors.textSecondary}
+          value={preco}
+          onChangeText={setPreco}
+          keyboardType="decimal-pad"
+          editable={!loading}
+        />
+      </View>
 
-      <Text style={labelStyle}>Estoque</Text>
-      <TextInput
-        style={inputStyle}
-        placeholder="Ex: 10"
-        placeholderTextColor={colors.textSecondary}
-        value={estoque}
-        onChangeText={setEstoque}
-        keyboardType="number-pad"
-        editable={!loading}
-      />
+      {/* Categoria */}
+      <View style={styles.fieldGroup}>
+        <Text style={[styles.label, { color: colors.textSecondary }]}>Categoria *</Text>
+        <View style={styles.categoryRow}>
+          {CATEGORIAS.map((cat) => {
+            const isActive = categoria === cat;
+            return (
+              <TouchableOpacity
+                key={cat}
+                onPress={() => setCategoria(cat)}
+                style={[
+                  styles.catButton,
+                  {
+                    borderColor: isActive ? colors.primary : colors.border,
+                    backgroundColor: isActive ? colors.primary : colors.card,
+                  },
+                ]}
+                disabled={loading}
+              >
+                <Text style={[styles.catButtonText, { color: isActive ? '#fff' : colors.textSecondary }]}>
+                  {cat}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      </View>
 
-      <TouchableOpacity
-        style={[styles.button, { backgroundColor: loading ? colors.textSecondary : colors.primary }]}
-        onPress={handleUpdate}
-        disabled={loading}
-      >
-        {loading ? (
-          <ActivityIndicator color="#fff" />
-        ) : (
-          <Text style={styles.buttonText}>Salvar Alterações</Text>
-        )}
-      </TouchableOpacity>
+      {/* Descrição */}
+      <View style={styles.fieldGroup}>
+        <Text style={[styles.label, { color: colors.textSecondary }]}>Descrição</Text>
+        <TextInput
+          style={[styles.inputMultiline, { backgroundColor: colors.input, color: colors.text, borderColor: colors.border }]}
+          placeholder="Descreva o produto..."
+          placeholderTextColor={colors.textSecondary}
+          value={descricao}
+          onChangeText={setDescricao}
+          multiline
+          editable={!loading}
+        />
+      </View>
 
-      <TouchableOpacity
-        style={[styles.buttonOutline, { borderColor: colors.border }]}
-        onPress={() => navigation.goBack()}
-        disabled={loading}
-      >
-        <Text style={[styles.buttonOutlineText, { color: colors.textSecondary }]}>Cancelar</Text>
-      </TouchableOpacity>
+      {/* URL da Imagem */}
+      <View style={styles.fieldGroup}>
+        <Text style={[styles.label, { color: colors.textSecondary }]}>URL da Imagem</Text>
+        <TextInput
+          style={inputStyle}
+          placeholder="https://..."
+          placeholderTextColor={colors.textSecondary}
+          value={imagemUrl}
+          onChangeText={setImagemUrl}
+          keyboardType="url"
+          autoCapitalize="none"
+          editable={!loading}
+        />
+      </View>
+
+      {/* Estoque */}
+      <View style={styles.fieldGroup}>
+        <Text style={[styles.label, { color: colors.textSecondary }]}>Estoque</Text>
+        <TextInput
+          style={inputStyle}
+          placeholder="Ex: 10"
+          placeholderTextColor={colors.textSecondary}
+          value={estoque}
+          onChangeText={setEstoque}
+          keyboardType="number-pad"
+          editable={!loading}
+        />
+      </View>
+
+      {/* Botões */}
+      <View style={styles.buttonGroup}>
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: loading ? colors.textSecondary : colors.primary }]}
+          onPress={handleUpdate}
+          disabled={loading}
+        >
+          {loading ? (
+            <ActivityIndicator color="#fff" size="small" />
+          ) : (
+            <>
+              <Ionicons name="checkmark-circle-outline" size={20} color="#fff" />
+              <Text style={styles.buttonText}>Salvar Alterações</Text>
+            </>
+          )}
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.buttonOutline, { borderColor: colors.border }]}
+          onPress={() => navigation.goBack()}
+          disabled={loading}
+        >
+          <Text style={[styles.buttonOutlineText, { color: colors.textSecondary }]}>Cancelar</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 }
