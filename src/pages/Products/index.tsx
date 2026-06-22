@@ -1,15 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  FlatList,
-  ActivityIndicator,
-  ScrollView,
-  RefreshControl,
-} from 'react-native';
-import styles from './styles';
+import { View, Text, TextInput, TouchableOpacity, FlatList, ActivityIndicator, ScrollView, RefreshControl, } from 'react-native'; import styles from './styles';
 import { getProducts, getProductsByCategory } from '../../services/api';
 import CardProduto, { Produto } from '../../components/CardProduto';
 import EmptyList from '../../components/EmptyList';
@@ -113,7 +103,8 @@ export default function Products({ navigation }: ProductsProps) {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        style={{ paddingHorizontal: 20, marginBottom: 16 }}
+        contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 4 }}
+        style={{ marginBottom: 16 }}
       >
         {categorias.map((cat) => (
           <TouchableOpacity

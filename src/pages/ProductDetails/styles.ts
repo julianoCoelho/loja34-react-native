@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   nome: {
-    flex: 1,
     fontSize: 22,
     fontWeight: '700',
   },

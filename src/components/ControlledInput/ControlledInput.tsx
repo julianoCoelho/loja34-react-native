@@ -5,7 +5,6 @@ import { Feather } from '@expo/vector-icons';
 import { styles } from './styles';
 import { theme } from '../../styles/theme';
 
-// Definição das propriedades
 interface ControlledInputProps {
   control: Control<any>;
   name: string;
@@ -21,7 +20,7 @@ export function ControlledInput({ control, name, icon, placeholder, secureTextEn
       <Text style={[styles.label, { color: theme.colors.text }]}>{placeholder}</Text>
       <View style={styles.inputWrap}>
         <Feather name={icon} size={16} color={theme.colors.textSecondary || "#888"} style={styles.inputIcon} />
-        
+
         <Controller
           control={control}
           name={name}
@@ -29,11 +28,11 @@ export function ControlledInput({ control, name, icon, placeholder, secureTextEn
           render={({ field: { onChange, value } }) => (
             <TextInput
               style={[
-                styles.input, 
-                { 
-                  backgroundColor: theme.colors.input, 
+                styles.input,
+                {
+                  backgroundColor: theme.colors.input,
                   color: theme.colors.text,
-                  borderColor: error ? theme.colors.danger : theme.colors.border 
+                  borderColor: error ? theme.colors.danger : theme.colors.border
                 }
               ]}
               placeholder={`Digite seu ${placeholder.toLowerCase()}`}

@@ -1,11 +1,10 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const BASE_USERS = 'https://6a076585fa9b27c848fa1078.mockapi.io/api/reactnative';
-const BASE_PRODUCTS = 'https://6a076585fa9b27c848fa1078.mockapi.io/api/reactnative';
+const BASE_URL = 'https://6a076585fa9b27c848fa1078.mockapi.io/api/reactnative';
 
-const usersApi = axios.create({ baseURL: BASE_USERS, timeout: 10000 });
-const productsApi = axios.create({ baseURL: BASE_PRODUCTS, timeout: 10000 });
+const usersApi = axios.create({ baseURL: BASE_URL, timeout: 10000 });
+const productsApi = axios.create({ baseURL: BASE_URL, timeout: 10000 });
 
 productsApi.interceptors.request.use(
   async (config) => {

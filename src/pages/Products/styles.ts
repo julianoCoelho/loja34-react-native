@@ -3,15 +3,16 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
   },
   title: {
     fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 16,
+    paddingHorizontal: 20,
+    paddingTop: 20,
   },
   card: {
-    width: '100%',
+    marginHorizontal: 20,
     padding: 14,
     borderRadius: 12,
     marginBottom: 16,
@@ -38,6 +39,7 @@ const styles = StyleSheet.create({
   },
   listContent: {
     width: '100%',
+    paddingHorizontal: 20,
     paddingBottom: 20,
   },
   filterButton: {

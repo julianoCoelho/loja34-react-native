@@ -18,7 +18,7 @@ export default function EditProduct() {
   const [nome, setNome] = useState(produto.nome ?? '');
   const [preco, setPreco] = useState(String(produto.preco ?? ''));
   const [descricao, setDescricao] = useState(produto.descricao ?? '');
-  const [imagemUrl, setImagemUrl] = useState(produto.imagemUrl ?? produto.imagem ?? '');
+  const [imagemUrl, setImagemUrl] = useState(produto.imagem ?? '');
   const [categoria, setCategoria] = useState(produto.categoria ?? '');
   const [estoque, setEstoque] = useState(produto.estoque != null ? String(produto.estoque) : '');
   const [loading, setLoading] = useState(false);
@@ -42,7 +42,7 @@ export default function EditProduct() {
         preco: precoNum,
         categoria,
         descricao: descricao.trim() || undefined,
-        imagemUrl: imagemUrl.trim() || undefined,
+        imagem: imagemUrl.trim() || undefined,
         estoque: estoque ? Number(estoque) : undefined,
       });
 
