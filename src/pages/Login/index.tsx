@@ -73,7 +73,7 @@ export default function Login({ navigation }: any) {
           control={control}
           name="username"
           icon="user"
-          placeholder="Usuário"
+          placeholder="Usuário digite: mor_2314"
           error={errors.username?.message as string}
         />
 
@@ -81,7 +81,7 @@ export default function Login({ navigation }: any) {
           control={control}
           name="password"
           icon="lock"
-          placeholder="Senha"
+          placeholder="Senha gigite: 83r5^_"
           secureTextEntry
           error={errors.password?.message as string}
         />

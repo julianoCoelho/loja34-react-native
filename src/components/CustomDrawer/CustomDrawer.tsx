@@ -8,7 +8,7 @@ import { useAuth } from '../../context/AuthContext';
 
 export function CustomDrawer(props: DrawerContentComponentProps) {
   
-  const { logout } = useAuth(); 
+  const { user, logout } = useAuth(); 
 
   // Função Simula logout
   const handleLogout = async() => {
@@ -34,7 +34,8 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
           <Feather name="user" size={24} color="#fff" />
         </View>
         <Text style={[styles.brandText, { color: colors.text }]}>🛍️ Loja 34</Text>
-        <Text style={styles.userSubtitle}>Menu de Navegação</Text>
+
+         <Text style={styles.userSubtitle}>{user?.username ? `Olá, ${user.username}` : 'Menu de Navegação'}</Text>
       </View>
       
       <View style={styles.listContainer}>
