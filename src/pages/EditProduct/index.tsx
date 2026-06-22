@@ -13,27 +13,32 @@ export default function EditProduct() {
 
   const { produto } = route.params;
 
-  const [title, setTitle] = useState(produto.nome);
-  const [price, setPrice] = useState(String(produto.preco));
-  const [category, setCategory] = useState(produto.categoria);
+  const [nome, setNome] = useState(produto.nome);
+  const [preco, setPreco] = useState(String(produto.preco ));
+  const [descricao, setDescricao] = useState(produto.descricao);
+  const [imagem, setImagem] = useState(produto.imagem);
+  const [categoria, setCategoria] = useState(produto.categoria);
   const [loading, setLoading] = useState(false);
 
   async function handleUpdate() {
-    if (!title || !price || !category) {
+    if (!nome || !preco || !categoria) {
       Alert.alert('Erro', 'Preencha todos os campos');
       return;
     }
-    if (isNaN(Number(price))) {
+    if (isNaN(Number(preco))) {
       Alert.alert('Erro', 'Preço inválido');
       return;
     }
     try {
       setLoading(true);
       await updateProduct(produto.id, {
-        nome: title,
-        preco: Number(price),
-        categoria: category,
+        nome,
+        preco: Number(preco),
+        descricao,
+        imagem,
+        categoria,
       });
+
       Alert.alert('Sucesso', 'Produto atualizado com sucesso!');
       navigation.goBack();
     } catch (error) {
@@ -49,10 +54,10 @@ export default function EditProduct() {
 
       <TextInput
         style={[styles.input, { backgroundColor: colors.input, color: colors.text, borderColor: colors.border }]}
-        placeholder="Nome do produto"
+        placeholder="Nome"
         placeholderTextColor={colors.textSecondary}
-        value={title}
-        onChangeText={setTitle}
+        value={nome}
+        onChangeText={setNome}
         editable={!loading}
       />
 
@@ -60,8 +65,8 @@ export default function EditProduct() {
         style={[styles.input, { backgroundColor: colors.input, color: colors.text, borderColor: colors.border }]}
         placeholder="Preço"
         placeholderTextColor={colors.textSecondary}
-        value={price}
-        onChangeText={setPrice}
+        value={preco}
+        onChangeText={setPreco}
         keyboardType="numeric"
         editable={!loading}
       />
@@ -70,8 +75,26 @@ export default function EditProduct() {
         style={[styles.input, { backgroundColor: colors.input, color: colors.text, borderColor: colors.border }]}
         placeholder="Categoria"
         placeholderTextColor={colors.textSecondary}
-        value={category}
-        onChangeText={setCategory}
+        value={categoria}
+        onChangeText={setCategoria}
+        editable={!loading}
+      />
+
+          <TextInput
+        style={[styles.input, { backgroundColor: colors.input, color: colors.text, borderColor: colors.border }]}
+        placeholder="Descricao"
+        placeholderTextColor={colors.textSecondary}
+        value={descricao}
+        onChangeText={setDescricao}
+        editable={!loading}
+      />
+
+          <TextInput
+        style={[styles.input, { backgroundColor: colors.input, color: colors.text, borderColor: colors.border }]}
+        placeholder="URL imagem"
+        placeholderTextColor={colors.textSecondary}
+        value={imagem}
+        onChangeText={setImagem}
         editable={!loading}
       />
 

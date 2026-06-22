@@ -8,27 +8,31 @@ export default function AddProduct() {
   const { theme } = useTheme();
   const colors = theme.colors;
 
-  const [title, setTitle] = useState('');
-  const [price, setPrice] = useState('');
-  const [category, setCategory] = useState('');
+  const [nome, setNome] = useState('');
+  const [preco, setPreco] = useState('');
+  const [descricao, setDescricao] = useState('');
+  const [imagem, setImagem] = useState('');
+  const [categoria, setCategoria] = useState('');
   const [loading, setLoading] = useState(false);
 
   async function handleCreate() {
-    if (!title || !price || !category) {
+    if (!nome || !preco|| !categoria) {
       Alert.alert('Erro', 'Preencha todos os campos');
       return;
     }
-    if (isNaN(Number(price))) {
+    if (isNaN(Number(preco))) {
       Alert.alert('Erro', 'Preço inválido');
       return;
     }
     try {
       setLoading(true);
-      await createProduct({ title, price: Number(price), category });
+      await createProduct({ nome, preco: Number(preco), descricao, imagem, categoria});
       Alert.alert('Sucesso', 'Produto cadastrado com sucesso!');
-      setTitle('');
-      setPrice('');
-      setCategory('');
+      setNome('');
+      setPreco('');
+      setDescricao('');
+      setImagem('');
+      setCategoria('');
     } catch (error) {
       Alert.alert('Erro', 'Não foi possível cadastrar o produto');
     } finally {
@@ -42,10 +46,10 @@ export default function AddProduct() {
 
       <TextInput
         style={[styles.input, { backgroundColor: colors.input, color: colors.text, borderColor: colors.border }]}
-        placeholder="Nome do produto"
+        placeholder="Nome "
         placeholderTextColor={colors.textSecondary}
-        value={title}
-        onChangeText={setTitle}
+        value={nome}
+        onChangeText={setNome}
         editable={!loading}
       />
 
@@ -53,8 +57,8 @@ export default function AddProduct() {
         style={[styles.input, { backgroundColor: colors.input, color: colors.text, borderColor: colors.border }]}
         placeholder="Preço"
         placeholderTextColor={colors.textSecondary}
-        value={price}
-        onChangeText={setPrice}
+        value={preco}
+        onChangeText={setPreco}
         keyboardType="numeric"
         editable={!loading}
       />
@@ -63,8 +67,26 @@ export default function AddProduct() {
         style={[styles.input, { backgroundColor: colors.input, color: colors.text, borderColor: colors.border }]}
         placeholder="Categoria"
         placeholderTextColor={colors.textSecondary}
-        value={category}
-        onChangeText={setCategory}
+        value={categoria}
+        onChangeText={setCategoria}
+        editable={!loading}
+      />
+
+      <TextInput
+        style={[styles.input, { backgroundColor: colors.input, color: colors.text, borderColor: colors.border }]}
+        placeholder="Descricao"
+        placeholderTextColor={colors.textSecondary}
+        value={descricao}
+        onChangeText={setDescricao}
+        editable={!loading}
+      />
+
+      <TextInput
+        style={[styles.input, { backgroundColor: colors.input, color: colors.text, borderColor: colors.border }]}
+        placeholder="URL da imagem"
+        placeholderTextColor={colors.textSecondary}
+        value={imagem}
+        onChangeText={setImagem}
         editable={!loading}
       />
 
