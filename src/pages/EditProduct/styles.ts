@@ -5,53 +5,92 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    paddingBottom: 24,
-  },
-  image: {
-    width: '100%',
-    height: 260,
-  },
-  imagePlaceholder: {
-    width: '100%',
-    height: 260,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  info: {
     padding: 20,
+    paddingBottom: 40,
   },
-  nome: {
-    fontSize: 22,
-    fontWeight: '700',
+  header: {
+    marginBottom: 24,
   },
-  preco: {
+  title: {
     fontSize: 24,
     fontWeight: '700',
+    marginBottom: 4,
+  },
+  subtitle: {
+    fontSize: 14,
+  },
+  divider: {
+    height: 1,
+    marginBottom: 24,
     marginTop: 8,
   },
-  descricao: {
-    fontSize: 15,
-    lineHeight: 22,
-    marginTop: 12,
+  fieldGroup: {
+    marginBottom: 18,
   },
-  footer: {
+  label: {
+    fontSize: 13,
+    fontWeight: '600',
+    marginBottom: 8,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  input: {
+    borderRadius: 12,
+    borderWidth: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    fontSize: 15,
+  },
+  inputMultiline: {
+    borderRadius: 12,
+    borderWidth: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    fontSize: 15,
+    height: 100,
+    textAlignVertical: 'top',
+  },
+  categoryRow: {
     flexDirection: 'row',
-    gap: 12,
-    padding: 20,
-    borderTopWidth: 1,
+    gap: 10,
   },
-  footerButton: {
+  catButton: {
     flex: 1,
-  },
-  modalContent: {
+    paddingVertical: 12,
+    borderRadius: 12,
+    borderWidth: 1.5,
     alignItems: 'center',
-    paddingVertical: 8,
+  },
+  catButtonText: {
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  buttonGroup: {
+    marginTop: 8,
     gap: 12,
   },
-  modalText: {
+  button: {
+    borderRadius: 12,
+    paddingVertical: 16,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: '700',
+    fontSize: 16,
+  },
+  buttonOutline: {
+    borderRadius: 12,
+    borderWidth: 1.5,
+    paddingVertical: 14,
+    alignItems: 'center',
+  },
+  buttonOutlineText: {
+    fontWeight: '600',
     fontSize: 15,
-    textAlign: 'center',
-    marginBottom: 6,
   },
 });
 
