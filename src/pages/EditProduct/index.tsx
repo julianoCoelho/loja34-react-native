@@ -15,6 +15,22 @@ export default function EditProduct() {
 
   const { produto } = route.params;
 
+
+  const [nome, setNome] = useState(produto.nome);
+  const [preco, setPreco] = useState(String(produto.preco ));
+  const [descricao, setDescricao] = useState(produto.descricao);
+  const [imagem, setImagem] = useState(produto.imagem);
+  const [categoria, setCategoria] = useState(produto.categoria);
+  const [loading, setLoading] = useState(false);
+
+  async function handleUpdate() {
+    if (!nome || !preco || !categoria) {
+      Alert.alert('Erro', 'Preencha todos os campos');
+      return;
+    }
+    if (isNaN(Number(preco))) {
+      Alert.alert('Erro', 'Preço inválido');
+
   const [nome, setNome] = useState(produto.nome ?? '');
   const [preco, setPreco] = useState(String(produto.preco ?? ''));
   const [categoria, setCategoria] = useState(produto.categoria ?? '');
@@ -31,12 +47,24 @@ export default function EditProduct() {
     const precoNum = Number(preco.replace(',', '.'));
     if (isNaN(precoNum) || precoNum <= 0) {
       Alert.alert('Preço inválido', 'Informe um valor numérico positivo.');
+
       return;
     }
 
     try {
       setLoading(true);
       await updateProduct(produto.id, {
+
+        nome,
+        preco: Number(preco),
+        descricao,
+        imagem,
+        categoria,
+      });
+
+      Alert.alert('Sucesso', 'Produto atualizado com sucesso!');
+      navigation.goBack();
+
         nome: nome.trim(),
         preco: precoNum,
         categoria,
@@ -47,6 +75,7 @@ export default function EditProduct() {
       Alert.alert('Sucesso', 'Produto atualizado com sucesso!', [
         { text: 'OK', onPress: () => navigation.goBack() },
       ]);
+
     } catch (error) {
       Alert.alert('Erro', 'Não foi possível atualizar o produto.');
     } finally {
@@ -69,6 +98,13 @@ export default function EditProduct() {
 
       <Text style={[styles.label, { color: colors.textSecondary }]}>Nome *</Text>
       <TextInput
+
+        style={[styles.input, { backgroundColor: colors.input, color: colors.text, borderColor: colors.border }]}
+        placeholder="Nome"
+        placeholderTextColor={colors.textSecondary}
+        value={nome}
+        onChangeText={setNome}
+
         style={inputStyle}
         placeholder="Nome do produto"
         placeholderTextColor={colors.textSecondary}
@@ -117,6 +153,7 @@ export default function EditProduct() {
         value={descricao}
         onChangeText={setDescricao}
         multiline
+
         editable={!loading}
       />
 
@@ -125,10 +162,16 @@ export default function EditProduct() {
         style={inputStyle}
         placeholder="https://..."
         placeholderTextColor={colors.textSecondary}
+
+        value={preco}
+        onChangeText={setPreco}
+        keyboardType="numeric"
+
         value={imagemUrl}
         onChangeText={setImagemUrl}
         keyboardType="url"
         autoCapitalize="none"
+
         editable={!loading}
       />
 
@@ -137,9 +180,32 @@ export default function EditProduct() {
         style={inputStyle}
         placeholder="Ex: 10"
         placeholderTextColor={colors.textSecondary}
+
+        value={categoria}
+        onChangeText={setCategoria}
+        editable={!loading}
+      />
+
+          <TextInput
+        style={[styles.input, { backgroundColor: colors.input, color: colors.text, borderColor: colors.border }]}
+        placeholder="Descricao"
+        placeholderTextColor={colors.textSecondary}
+        value={descricao}
+        onChangeText={setDescricao}
+        editable={!loading}
+      />
+
+          <TextInput
+        style={[styles.input, { backgroundColor: colors.input, color: colors.text, borderColor: colors.border }]}
+        placeholder="URL imagem"
+        placeholderTextColor={colors.textSecondary}
+        value={imagem}
+        onChangeText={setImagem}
+
         value={estoque}
         onChangeText={setEstoque}
         keyboardType="number-pad"
+
         editable={!loading}
       />
 

@@ -9,6 +9,22 @@ const CATEGORIAS = ['Calçados', 'Vestuário', 'Acessórios'];
 export default function AddProduct({ navigation }: any) {
   const { theme } = useTheme();
   const colors = theme.colors;
+
+
+  const [nome, setNome] = useState('');
+  const [preco, setPreco] = useState('');
+  const [descricao, setDescricao] = useState('');
+  const [imagem, setImagem] = useState('');
+  const [categoria, setCategoria] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  async function handleCreate() {
+    if (!nome || !preco|| !categoria) {
+      Alert.alert('Erro', 'Preencha todos os campos');
+      return;
+    }
+    if (isNaN(Number(preco))) {
+      Alert.alert('Erro', 'Preço inválido');
   const [nome, setNome] = useState('');
   const [preco, setPreco] = useState('');
   const [categoria, setCategoria] = useState('');
@@ -25,11 +41,21 @@ export default function AddProduct({ navigation }: any) {
     const precoNum = Number(preco.replace(',', '.'));
     if (isNaN(precoNum) || precoNum <= 0) {
       Alert.alert('Preço inválido', 'Informe um valor numérico positivo.');
+
       return;
     }
 
     try {
       setLoading(true);
+
+      await createProduct({ nome, preco: Number(preco), descricao, imagem, categoria});
+      Alert.alert('Sucesso', 'Produto cadastrado com sucesso!');
+      setNome('');
+      setPreco('');
+      setDescricao('');
+      setImagem('');
+      setCategoria('');
+
       await createProduct({
         nome: nome.trim(),
         preco: precoNum,
@@ -41,6 +67,7 @@ export default function AddProduct({ navigation }: any) {
       Alert.alert('Sucesso', 'Produto cadastrado com sucesso!', [
         { text: 'OK', onPress: () => navigation?.goBack() },
       ]);
+
     } catch (error) {
       Alert.alert('Erro', 'Não foi possível cadastrar o produto. Tente novamente.');
     } finally {
@@ -105,12 +132,20 @@ export default function AddProduct({ navigation }: any) {
 
       <Text style={[styles.label, { color: colors.textSecondary }]}>Descrição</Text>
       <TextInput
+
+        style={[styles.input, { backgroundColor: colors.input, color: colors.text, borderColor: colors.border }]}
+        placeholder="Nome "
+        placeholderTextColor={colors.textSecondary}
+        value={nome}
+        onChangeText={setNome}
+
         style={[inputStyle, { height: 80, textAlignVertical: 'top' }]}
         placeholder="Descreva o produto..."
         placeholderTextColor={colors.textSecondary}
         value={descricao}
         onChangeText={setDescricao}
         multiline
+
         editable={!loading}
       />
 
@@ -119,10 +154,16 @@ export default function AddProduct({ navigation }: any) {
         style={inputStyle}
         placeholder="https://..."
         placeholderTextColor={colors.textSecondary}
+
+        value={preco}
+        onChangeText={setPreco}
+        keyboardType="numeric"
+
         value={imagem}
         onChangeText={setImagem}
         keyboardType="url"
         autoCapitalize="none"
+
         editable={!loading}
       />
 
@@ -131,9 +172,32 @@ export default function AddProduct({ navigation }: any) {
         style={inputStyle}
         placeholder="Ex: 10"
         placeholderTextColor={colors.textSecondary}
+
+        value={categoria}
+        onChangeText={setCategoria}
+        editable={!loading}
+      />
+
+      <TextInput
+        style={[styles.input, { backgroundColor: colors.input, color: colors.text, borderColor: colors.border }]}
+        placeholder="Descricao"
+        placeholderTextColor={colors.textSecondary}
+        value={descricao}
+        onChangeText={setDescricao}
+        editable={!loading}
+      />
+
+      <TextInput
+        style={[styles.input, { backgroundColor: colors.input, color: colors.text, borderColor: colors.border }]}
+        placeholder="URL da imagem"
+        placeholderTextColor={colors.textSecondary}
+        value={imagem}
+        onChangeText={setImagem}
+
         value={estoque}
         onChangeText={setEstoque}
         keyboardType="number-pad"
+
         editable={!loading}
       />
 
