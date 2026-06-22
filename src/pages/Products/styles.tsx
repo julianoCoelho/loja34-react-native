@@ -40,19 +40,29 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingBottom: 20,
   },
+
+  filterContainer: {
+    height: 46, 
+    marginBottom: 16,
+    width: '100%',
+  },
+  filterListContent: {
+    alignItems: 'center',
+    paddingRight: 20,
+  },
   filterButton: {
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 20,
     marginRight: 10,
     borderWidth: 1,
-  },
-  filterButtonActive: {
-    backgroundColor: '#2563eb',
-    borderColor: '#2563eb',
+    height: 38, 
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   filterButtonText: {
     fontWeight: '500',
+    fontSize: 14,
   },
   filterButtonTextActive: {
     color: '#ffffff',
