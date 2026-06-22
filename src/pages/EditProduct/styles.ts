@@ -3,43 +3,55 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+  },
+  scrollContent: {
+    paddingBottom: 24,
+  },
+  image: {
+    width: '100%',
+    height: 260,
+  },
+  imagePlaceholder: {
+    width: '100%',
+    height: 260,
+    alignItems: 'center',
     justifyContent: 'center',
   },
-  title: {
+  info: {
+    padding: 20,
+  },
+  nome: {
     fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  input: {
-    borderRadius: 8,
-    borderWidth: 1,
-    padding: 12,
-    marginBottom: 15,
-    fontSize: 15,
-  },
-  button: {
-    borderRadius: 8,
-    padding: 14,
-    alignItems: 'center',
-    marginTop: 4,
-    marginBottom: 10,
-  },
-  buttonText: {
-    color: '#fff',
     fontWeight: '700',
-    fontSize: 16,
   },
-  buttonOutline: {
-    borderRadius: 8,
-    borderWidth: 1,
-    padding: 14,
+  preco: {
+    fontSize: 24,
+    fontWeight: '700',
+    marginTop: 8,
+  },
+  descricao: {
+    fontSize: 15,
+    lineHeight: 22,
+    marginTop: 12,
+  },
+  footer: {
+    flexDirection: 'row',
+    gap: 12,
+    padding: 20,
+    borderTopWidth: 1,
+  },
+  footerButton: {
+    flex: 1,
+  },
+  modalContent: {
     alignItems: 'center',
+    paddingVertical: 8,
+    gap: 12,
   },
-  buttonOutlineText: {
-    fontWeight: '600',
-    fontSize: 16,
+  modalText: {
+    fontSize: 15,
+    textAlign: 'center',
+    marginBottom: 6,
   },
 });
 
