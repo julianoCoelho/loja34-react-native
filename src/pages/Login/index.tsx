@@ -2,91 +2,86 @@ import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-
-import { theme } from '../../styles/theme';
 import { styles } from './styles';
 import { loginSchema } from '../../utils/validations/loginSchema';
 import { ControlledInput } from '../../components/ControlledInput/ControlledInput';
 import Button from '../../components/Button';
 import { loginUser } from '../../services/api';
-import { useAuth } from '../../context/AuthContext'; 
+import { useAuth } from '../../contexts/AuthContext';
+import { useTheme } from '../../contexts/ThemeContext';
 
 export default function Login({ navigation }: any) {
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState('');
 
-  // Função de login que salva no storage
-  const {login} = useAuth();
+  const { login } = useAuth();
+  const { theme } = useTheme();
+  const colors = theme.colors;
 
-  const { control, handleSubmit, formState: { errors } } = useForm<any>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<any>({
     resolver: yupResolver(loginSchema),
   });
 
-  // Disparado ao clicar em entrar se os campos estiverem validados
   async function onSubmit(data: any) {
     setLoading(true);
-    setApiError(''); 
-    
-    try{
-      // Efetua a requisição 
+    setApiError('');
+    try {
       const response = await loginUser({
         username: data.username,
-        password: data.password
+        password: data.password,
       });
-      // Caso ok retorna um objeto com o token
-      // Armazenamos o nome e token (AsyncStorage)
       await login({
-        username: data.username,
-        token: response.data.token
-      })
-      // Acessa a navegação
+        username: response.data.username,
+        token: response.data.token,
+      });
       navigation.navigate('AppDrawer');
     } catch (error: any) {
-      console.log("Erro ao fazer login:", error);
-      
-      // Em caso de usuario e-ou senha errada
-      setApiError('Usuário ou senha incorretos. Tente: mor_2314 / 83r5^_');
+      console.log('Erro ao fazer login:', error);
+      setApiError('Usuário ou senha incorretos. Verifique seus dados ou crie uma conta.');
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   }
-    
+
   return (
-    <View style={[styles.page, { backgroundColor: theme.colors.background }]}>
-      
-      <View style={[styles.card, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}>
-        
+    <View style={[styles.page, { backgroundColor: colors.background }]}>
+      <View style={[styles.card, { backgroundColor: colors.card, borderColor: colors.border }]}>
         <View style={styles.top}>
           <Text style={styles.logoIcon}>🛍️</Text>
-          <Text style={[styles.title, { color: theme.colors.text }]}>Loja 34</Text>
-          <Text style={styles.subtitle}>Entre na sua conta para continuar</Text>
+          <Text style={[styles.title, { color: colors.text }]}>Loja 34</Text>
+          <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
+            Entre na sua conta para continuar
+          </Text>
         </View>
 
-   
-        { apiError ? (
+        {apiError ? (
           <View style={styles.apiErrorBox}>
             <Text style={styles.apiErrorText}>{apiError}</Text>
           </View>
         ) : null}
 
-        <ControlledInput 
+        <ControlledInput
           control={control}
           name="username"
           icon="user"
-          placeholder="Usuário digite: mor_2314"
+          placeholder="Usuário"
           error={errors.username?.message as string}
         />
 
-        <ControlledInput 
+        <ControlledInput
           control={control}
           name="password"
           icon="lock"
-          placeholder="Senha gigite: 83r5^_"
+          placeholder="Senha"
           secureTextEntry
           error={errors.password?.message as string}
         />
 
-        <Button 
+        <Button
           variant="default"
           loading={loading}
           onPress={handleSubmit(onSubmit)}
@@ -95,14 +90,14 @@ export default function Login({ navigation }: any) {
           Entrar
         </Button>
 
-        <Text style={styles.hint}>
-          Dica: usuário mor_2314 / senha 83r5^_
-        </Text>
-
+        <Button
+          variant="outline"
+          onPress={() => navigation.navigate('SignUp')}
+          style={{ marginTop: 10 }}
+        >
+          Criar nova conta
+        </Button>
       </View>
     </View>
   );
-
 }
-
-
