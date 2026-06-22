@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-    ccontainer: {
+    container: {
         flex: 1,
     },
     content: {
@@ -84,6 +84,47 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         letterSpacing: 0.2,
     },
+    detailsContainer: {
+        minHeight: 140,
+        marginTop: 16,
+        borderRadius: 12,
+        borderWidth: 1,
+        overflow: 'hidden',
+    },
+    devInfoCard: {
+        flexDirection: 'row',
+        padding: 16,
+        flex: 1,
+    },
+    avatar: {
+        width: 80,
+        height: 80,
+        borderRadius: 40,
+        marginRight: 16,
+        backgroundColor: '#e5e7eb',
+    },
+    devTextInfo: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+    devCargo: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        marginBottom: 6,
+    },
+    devBio: {
+        fontSize: 14,
+        lineHeight: 20,
+    },
+    emptyDetails: {
+        flex: 1,
+        padding: 24,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderStyle: 'dashed',
+        borderWidth: 1,
+        borderColor: 'transparent',
+    }
 });
 
 export default styles;
