@@ -1,9 +1,11 @@
 import React from 'react';
+import { ActivityIndicator, View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { RootStackParamList, DrawerParamList } from './types';
 import { CustomDrawer } from '../components/CustomDrawer/CustomDrawer';
 import { useTheme } from '../contexts/ThemeContext';
+import { useAuth } from '../contexts/AuthContext';
 import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
 import Products from '../pages/Products';
@@ -44,7 +46,7 @@ function DrawerRoutes() {
           backgroundColor: colors.card,
           borderBottomWidth: 1,
           borderBottomColor: colors.border,
-        },
+        } as any,
         headerTintColor: '#2563eb',
         headerTitleStyle: {
           fontWeight: '700',
@@ -69,21 +71,43 @@ function DrawerRoutes() {
 }
 
 export default function Routes() {
+  const { user, isLoading } = useAuth();
+  const { theme } = useTheme();
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors.background }}>
+        <ActivityIndicator size="large" color={theme.colors.primary} />
+      </View>
+    );
+  }
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: true, title: 'Criar Conta' }} />
-      <Stack.Screen name="AppDrawer" component={DrawerRoutes} />
-      <Stack.Screen
-        name="Detalhes"
-        component={ProductDetails}
-        options={{ headerShown: true, title: 'Visualizar Produto' }}
-      />
-      <Stack.Screen
-        name="EditProduct"
-        component={EditProduct}
-        options={{ headerShown: true, title: 'Editar Produto' }}
-      />
+      {user ? (
+        <>
+          <Stack.Screen name="AppDrawer" component={DrawerRoutes} />
+          <Stack.Screen
+            name="Detalhes"
+            component={ProductDetails}
+            options={{ headerShown: true, title: 'Visualizar Produto' }}
+          />
+          <Stack.Screen
+            name="EditProduct"
+            component={EditProduct}
+            options={{ headerShown: true, title: 'Editar Produto' }}
+          />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUp}
+            options={{ headerShown: true, title: 'Criar Conta' }}
+          />
+        </>
+      )}
     </Stack.Navigator>
   );
 }
