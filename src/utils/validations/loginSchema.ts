@@ -1,4 +1,3 @@
-// Schema de validação do login
 import * as yup from 'yup';
 
 export const loginSchema = yup.object({

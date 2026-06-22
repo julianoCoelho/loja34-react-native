@@ -8,8 +8,8 @@ export type DrawerParamList = {
 
 export type RootStackParamList = {
   Login: undefined;
+  SignUp: undefined;
   AppDrawer: undefined;
   Detalhes: { produto: Produto };
-EditProduct: { produto: Produto };
-  
+  EditProduct: { produto: Produto };
 };

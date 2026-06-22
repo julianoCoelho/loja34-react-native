@@ -38,7 +38,7 @@ export const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 14,
-    color: '#666',
+    color: theme.colors.muted || '#666',
     marginTop: 6
   },
   submitBtn: {
@@ -50,19 +50,19 @@ export const styles = StyleSheet.create({
     marginTop: 10
   },
   submitBtnText: {
-    color: '#ffffff',
+    color: theme.colors.onPrimary || '#ffffff',
     fontSize: 15,
     fontWeight: '600'
   },
   hint: {
     marginTop: 20,
     fontSize: 12,
-    color: '#888',
+    color: theme.colors.muted || '#888',
     textAlign: 'center'
   },
   apiErrorBox: {
-    backgroundColor: '#fee2e2', // Fundo vermelho clarinho
-    borderColor: '#fca5a5',
+    backgroundColor: theme.colors.errorLight || '#fee2e2', // Fundo vermelho clarinho
+    borderColor: theme.colors.error || '#fca5a5',
     borderWidth: 1,
     padding: 12,
     borderRadius: 8,
@@ -70,7 +70,7 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   apiErrorText: {
-    color: '#dc2626', // Texto vermelho de atenção
+    color: theme.colors.error || '#dc2626', // Texto vermelho de atenção
     fontSize: 13,
     fontWeight: '600',
     textAlign: 'center',

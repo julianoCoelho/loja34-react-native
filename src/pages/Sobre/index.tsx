@@ -1,130 +1,66 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Switch } from 'react-native';
+import styles from './styles';
 import { Feather } from '@expo/vector-icons';
-import { theme } from '../../styles/theme';
+import { useTheme } from '../../contexts/ThemeContext';
 
 export default function Sobre() {
+  const { theme, isDark, toggleTheme } = useTheme();
+  const colors = theme.colors;
+
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-
+    <ScrollView
+      style={[styles.container, { backgroundColor: colors.background }]}
+      contentContainerStyle={styles.content}
+    >
       <View style={styles.header}>
-        <Feather name="shopping-bag" size={48} color={theme.colors.primary} />
-        <Text style={styles.title}>Sobre Loja 34</Text>
+        <Feather name="shopping-bag" size={48} color={colors.primary} />
+        <Text style={[styles.title, { color: colors.text }]}>Sobre Loja 34</Text>
       </View>
 
-      <View style={styles.aboutCard}>
-        <Text style={styles.paragraph}>
-          A Loja 34 nasceu da vontade de trazer os melhores produtos com a melhor experiência de compras diretamente para a palma da sua mão. 
+      <View style={[styles.aboutCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+        <Text style={[styles.paragraph, { color: colors.text }]}>
+          A Loja 34 nasceu da vontade de trazer os melhores produtos com a melhor
+          experiência de compras diretamente para a palma da sua mão.
         </Text>
-        <Text style={styles.paragraphLast}>
-          Nosso foco é oferecer variedade, qualidade e um atendimento de excelência. Tudo o que você precisa, a um clique de distância!
+        <Text style={[styles.paragraphLast, { color: colors.text }]}>
+          Nosso foco é oferecer variedade, qualidade e um atendimento de excelência.
+          Tudo o que você precisa, a um clique de distância!
         </Text>
       </View>
 
-      <Feather name="users" size={20} style={styles.subtitle} />
-      <Text style={styles.subtitle}>Desenvolvedores</Text>
+      <Text style={[styles.sectionTitle, { color: colors.primary }]}>Preferências</Text>
+
+      <View style={[styles.preferenceCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
+        <View style={styles.preferenceRow}>
+          <Feather name={isDark ? 'moon' : 'sun'} size={20} color={colors.primary} />
+          <Text style={[styles.preferenceLabel, { color: colors.text }]}>
+            {isDark ? 'Modo Escuro' : 'Modo Claro'}
+          </Text>
+          <Switch
+            value={isDark}
+            onValueChange={toggleTheme}
+            trackColor={{ false: '#d1d5db', true: '#2563eb' }}
+            thumbColor="#ffffff"
+          />
+        </View>
+      </View>
+
+      <Text style={[styles.sectionTitle, { color: colors.primary }]}>Desenvolvedores</Text>
 
       <View style={styles.teamContainer}>
-
-        <View style={styles.memberCard}>
-          <Feather name="user" size={18} color={theme.colors.primary} style={styles.memberIcon} />
-          <Text style={styles.memberName}>Juliano Coelho</Text>
-        </View>
-
-        <View style={styles.memberCard}>
-          <Feather name="user" size={18} color={theme.colors.primary} style={styles.memberIcon} />
-          <Text style={styles.memberName}>Luiz Antonio</Text>
-        </View>
-
-        <View style={styles.memberCard}>
-          <Feather name="user" size={18} color={theme.colors.primary} style={styles.memberIcon} />
-          <Text style={styles.memberName}>Mariana Oliveira</Text>
-        </View>
-
-        <View style={styles.memberCard}>
-          <Feather name="user" size={18} color={theme.colors.primary} style={styles.memberIcon} />
-          <Text style={styles.memberName}>Matheus da Silveira</Text>
-        </View>
-
+        {['Juliano Coelho', 'Luiz Antonio', 'Mariana Oliveira', 'Matheus da Silveira'].map(
+          (nome) => (
+            <View
+              key={nome}
+              style={[styles.memberCard, { backgroundColor: colors.card, borderColor: colors.border }]}
+            >
+              <Feather name="user" size={18} color={colors.primary} style={styles.memberIcon} />
+              <Text style={[styles.memberName, { color: colors.text }]}>{nome}</Text>
+            </View>
+          )
+        )}
       </View>
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.colors.background,
-  },
-  content: {
-    padding: theme.radius.lg,
-    paddingTop: 32,
-    paddingBottom: 40,
-  },
-  header: {
-    alignItems: 'center',
-    marginBottom: 28,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: theme.colors.text,
-    marginTop: 12,
-    letterSpacing: 0.5,
-  },
-  aboutCard: {
-    backgroundColor: theme.colors.card,
-    padding: 24,
-    borderRadius: theme.radius.lg,
-    borderWidth: 1.5,
-    borderColor: theme.colors.border,
-    marginBottom: 36,
-  },
-  paragraph: {
-    fontSize: 16,
-    color: theme.colors.text,
-    lineHeight: 26,
-    textAlign: 'center',
-    marginBottom: 14,
-    fontWeight: '400',
-  },
-  paragraphLast: {
-    fontSize: 16,
-    color: theme.colors.text,
-    lineHeight: 26,
-    textAlign: 'center',
-    fontWeight: '400',
-  },
-  subtitle: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: theme.colors.primary,
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  teamContainer: {
-    width: '100%',
-    alignItems: 'center',
-    gap: 14,
-  },
-  memberCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: theme.colors.card,
-    width: '85%',
-    paddingVertical: 14,
-    borderRadius: theme.radius.md,
-    borderWidth: 1.5,
-    borderColor: theme.colors.border,
-  },
-  memberIcon: {
-    marginRight: 10,
-  },
-  memberName: {
-    fontSize: 16,
-    color: theme.colors.text,
-    fontWeight: '600',
-    letterSpacing: 0.2,
-  }
-});

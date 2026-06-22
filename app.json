@@ -27,6 +27,13 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["@react-native-vector-icons/material-icons"]
+    "plugins": [
+      "@react-native-vector-icons/material-icons"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "3b92eade-abbb-4a5a-9f08-59729d8715bd"
+      }
+    }
   }
 }

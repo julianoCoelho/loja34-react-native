@@ -1,10 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { theme } from '../../styles/theme';
-
 
 export const styles = StyleSheet.create({
   scrollContainer: {
-    flex: 1, 
+    flex: 1,
   },
   headerContainer: {
     width: '100%',
@@ -18,7 +16,7 @@ export const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: theme.colors.primary,
+    backgroundColor: '#2563eb',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 8,
@@ -33,9 +31,23 @@ export const styles = StyleSheet.create({
     marginTop: 2,
   },
   listContainer: {
-    flex: 1, 
+    flex: 1,
     paddingHorizontal: 8,
   },
+  themeToggleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 14,
+    borderTopWidth: 1,
+    gap: 8,
+  },
+  themeToggleLabel: {
+    flex: 1,
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  themeSwitch: {},
   logoutContainer: {
     padding: 16,
     borderTopWidth: 1,
@@ -46,12 +58,11 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 8,
     paddingVertical: 10,
-    backgroundColor: '#fee2e2', 
+    backgroundColor: '#fee2e2',
     borderRadius: 8,
     width: '100%',
   },
   logoutText: {
-    color: theme.colors.danger, 
     fontSize: 14,
     fontWeight: '600',
   },
