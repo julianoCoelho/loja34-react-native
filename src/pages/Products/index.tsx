@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, TextInput, TouchableOpacity, FlatList, ActivityIndicator, ScrollView, RefreshControl, } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, FlatList, ActivityIndicator, RefreshControl, } from 'react-native';
 import styles from './styles';
 import { getProducts, getProductsByCategory } from '../../services/api';
 import CardProduto, { Produto } from '../../components/CardProduto';
@@ -11,6 +11,7 @@ type ProductsProps = { navigation: any };
 export default function Products({ navigation }: ProductsProps) {
   const { theme } = useTheme();
   const colors = theme.colors;
+  const isDark = theme.mode === 'dark';
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [produtosFiltrados, setProdutosFiltrados] = useState<Produto[]>([]);
   const [loading, setLoading] = useState(true);
@@ -19,35 +20,46 @@ export default function Products({ navigation }: ProductsProps) {
   const [busca, setBusca] = useState('');
   const [categoriaAtiva, setCategoriaAtiva] = useState('Todos');
 
-  const categorias = ['Todos', 'Calçados', 'Vestuário', 'Acessórios'];
+   const categorias = [
+  { id: 'Todos', label: 'Todos', apiName: 'Todos' },
+  { id: 'Plástico', label: 'Plástico', apiName: 'Plastic' },
+  { id: 'Alumínio', label: 'Alumínio', apiName: 'Aluminum' },
+  { id: 'Madeira', label: 'Madeira', apiName: 'Wooden' },
+  { id: 'Granito', label: 'Granito', apiName: 'Granite' },
+];
 
-  const carregarProdutos = useCallback(
-    async (isRefresh = false) => {
-      if (isRefresh) setRefreshing(true);
-      else setLoading(true);
-      setErro(null);
+const carregarProdutos = useCallback(
+  async (isRefresh = false) => {
+    if (isRefresh) setRefreshing(true);
+    else setLoading(true);
+    setErro(null);
 
-      try {
-        let dados: Produto[] = [];
-        if (categoriaAtiva === 'Todos') {
-          const response = await getProducts();
-          dados = response.data;
-        } else {
-          const response = await getProductsByCategory(categoriaAtiva);
-          dados = response.data;
-        }
-        setProdutos(dados);
-        setProdutosFiltrados(dados);
-      } catch (error) {
-        console.error('Erro ao buscar produtos:', error);
-        setErro('Não foi possível carregar os produtos. Verifique sua conexão.');
-      } finally {
-        setLoading(false);
-        setRefreshing(false);
+    try {
+      let dados: Produto[] = [];
+      
+     
+      const categoriaSelecionada = categorias.find(c => c.id === categoriaAtiva);
+
+      if (categoriaAtiva === 'Todos' || !categoriaSelecionada) {
+        const response = await getProducts();
+        dados = response.data;
+      } else {
+      
+        const response = await getProductsByCategory(categoriaSelecionada.apiName);
+        dados = response.data;
       }
-    },
-    [categoriaAtiva]
-  );
+      setProdutos(dados);
+      setProdutosFiltrados(dados);
+    } catch (error) {
+      console.error('Erro ao buscar produtos:', error);
+      setErro('Não foi possível carregar os produtos. Verifique sua conexão.');
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  },
+  [categoriaAtiva]
+);
 
   useEffect(() => {
     carregarProdutos();
@@ -98,36 +110,45 @@ export default function Products({ navigation }: ProductsProps) {
         />
       </View>
 
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={{ paddingHorizontal: 20, marginBottom: 16 }}
-      >
-        {categorias.map((cat) => (
-          <TouchableOpacity
-            key={cat}
-            onPress={() => {
-              setCategoriaAtiva(cat);
-              setBusca('');
-            }}
-            style={[
-              styles.filterButton,
-              { borderColor: colors.border, backgroundColor: colors.card },
-              categoriaAtiva === cat && styles.filterButtonActive,
-            ]}
-          >
-            <Text
-              style={[
-                styles.filterButtonText,
-                { color: colors.textSecondary },
-                categoriaAtiva === cat && styles.filterButtonTextActive,
-              ]}
-            >
-              {cat}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+
+
+
+      <View style={styles.filterContainer}>
+        <FlatList
+          horizontal
+          data={categorias}
+          keyExtractor={(item) => item.id}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.filterListContent}
+          renderItem={({ item }) => {
+            const isActive = categoriaAtiva === item.id;
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  setCategoriaAtiva(item.id);
+                  setBusca('');
+                }}
+                style={[
+                  styles.filterButton,
+                  { borderColor: colors.border, backgroundColor: colors.card },
+                  isActive && { backgroundColor: colors.primary, borderColor: colors.primary },
+                ]}
+                activeOpacity={0.7}
+              >
+                <Text
+                  style={[
+                    styles.filterButtonText,
+                    { color: isDark ? '#ffffff' : '#666666' },
+                    isActive && styles.filterButtonTextActive,
+                  ]}
+                >
+                  {item.label}
+                </Text>
+              </TouchableOpacity>
+            );
+          }}
+        />
+      </View>
 
       {loading ? (
         <ActivityIndicator size="large" color={colors.primary} style={{ marginTop: 40 }} />
