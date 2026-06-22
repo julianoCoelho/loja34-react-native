@@ -42,9 +42,15 @@ export default function ProductDetails({ route, navigation }: ProductDetailsProp
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
+
         {produto.imagemUrl? (
           <Image
             source={{ uri: produto.imagemUrl}}
+
+        {produto.imagem ? (
+          <Image
+            source={{ uri: produto.imagem }}
+
             style={styles.image}
             resizeMode="cover"
           />
